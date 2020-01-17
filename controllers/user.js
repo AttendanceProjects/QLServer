@@ -5,7 +5,6 @@ var base = '/users';
 module.exports = {
   checkSignin: async ({ code, token }) => {
     const { data } = await chooseShot(code)({ method: 'get', url: `${ base }`, headers: { token } });
-    console.log('controller', data.user)
     return data.user;
   },
   getApproval: async ( code ) => {
@@ -20,7 +19,7 @@ module.exports = {
     const { data } = await chooseShot(code)({ method: 'post', url: `${ base }/signup`, data: { username, email, role, password } });
     return data.user;
   },
-  forgot: async ({ code, email }) => {
+  forgotPassword: async ({ code, email }) => {
     const { data } = await chooseShot(code)({ method: 'post', url: `${ base }/forgot`, data: { email } });
     return data.msg;
   },
