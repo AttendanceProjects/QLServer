@@ -38,6 +38,7 @@ module.exports = {
     Query: {
       checkSignin: async ( _, args ) => {
         const { code, token } = args;
+        console.log( code, token )
         try { return await checkSignin({ code, token }) }
         catch(err) { throw new Error( err.response.data.msg ) }
       },
@@ -55,7 +56,10 @@ module.exports = {
       signin: async ( _, args ) => {
         const { code, request, password } = args;
         try { return await signin({ code, request, password }) }
-        catch(err) { throw new Error( err.response.data.msg )}
+        catch(err) {
+          if( err.msg ) throw new Error( err.msg );
+          else throw new Error( err.response.data.msg );
+        }
       },
       forgot: async ( _, args ) => {
         const { code, email } = args;

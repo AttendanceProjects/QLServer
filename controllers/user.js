@@ -5,6 +5,7 @@ var base = '/users';
 module.exports = {
   checkSignin: async ({ code, token }) => {
     const { data } = await chooseShot(code)({ method: 'get', url: `${ base }`, headers: { token } });
+    console.log('controller', data.user)
     return data.user;
   },
   getApproval: async ( code ) => {
