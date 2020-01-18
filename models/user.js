@@ -1,13 +1,15 @@
 const { gql } = require('apollo-server'),
   { UserController } = require('../controllers'),
+  { catchedErr } = require('../helpers'),
   { checkSignin, getApproval, signup, signin, forgotPassword, confirmCode, changePassword } = UserController;
-
+  
 module.exports = {
   typeUser: gql`
     type User {
       _id: String,
       username: String,
       password: String,
+      profile_image: String,
       email: String,
       role: String
     }
@@ -36,62 +38,35 @@ module.exports = {
   `,
   resolveUser: {
     Query: {
-      checkSignin: async ( _, args ) => {
-        const { code, token } = args;
+      checkSignin: async ( _, { code, token } ) => {
         try { return await checkSignin({ code, token }) }
-        catch(err) {
-          if( err.msg ) throw new Error( err.msg );
-          else throw new Error( err.response.data.msg );
-        }
+        catch(err) { catchedErr( err ) }
       },
-      approval: async ( _, args ) => {
-        try { return await getApproval( args.code ) }
-        catch(err) {
-          if( err.msg ) throw new Error( err.msg );
-          else throw new Error( err.response.data.msg );
-        }
+      approval: async ( _, { code } ) => {
+        try { return await getApproval( code ) }
+        catch(err) { catchedErr( err ) }
       }
     },
     Mutation: {
-      signup: async ( _, args ) => {
-        const { code, username, email, role, password } = args;
+      signup: async ( _, { code, username, email, role, password } ) => {
         try { return await signup({ code, username, email, role, password }) }
-        catch(err) {
-          if( err.msg ) throw new Error( err.msg );
-          else throw new Error( err.response.data.msg );
-        }
+        catch(err) { catchedErr( err ) }
       },
-      signin: async ( _, args ) => {
-        const { code, request, password } = args;
+      signin: async ( _, { code, request, password } ) => {
         try { return await signin({ code, request, password }) }
-        catch(err) {
-          if( err.msg ) throw new Error( err.msg );
-          else throw new Error( err.response.data.msg );
-        }
+        catch(err) { catchedErr( err ) }
       },
-      forgot: async ( _, args ) => {
-        const { code, email } = args;
+      forgot: async ( _, { code, email } ) => {
         try { return await forgotPassword({ code, email }) }
-        catch(err) { 
-          if( err.msg ) throw new Error( err.msg );
-          else throw new Error( err.response.data.msg );
-        }
+        catch(err) {  catchedErr( err ) }
       },
-      confirm: async ( _, args ) => {
-        const { code, newPass, secretCode } = args;
+      confirm: async ( _, { code, newPass, secretCode } ) => {
         try { return await confirmCode({ code, newPass, secretCode }) }
-        catch(err) {
-          if( err.msg ) throw new Error( err.msg );
-          else throw new Error( err.response.data.msg );
-        }
+        catch(err) { catchedErr( err ) }
       },
-      changePass: async ( _, args ) => {
-        const { code, newPass, token } = args;
+      changePass: async ( _, { code, newPass, token } ) => {
         try { return await changePassword({ code, newPass, token }) }
-        catch(err) {
-          if( err.msg ) throw new Error( err.msg );
-          else throw new Error( err.response.data.msg );
-        } 
+        catch(err) { catchedErr( err ) } 
       }
     }
   }
