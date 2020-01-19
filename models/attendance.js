@@ -26,6 +26,13 @@ module.exports = {
       UserId: String,
       date: String
     }
+    type Image {
+      url: String
+    }
+
+    type FormData {
+      _parts: [[ String ]]
+    }
 
     type PackageAttendance {
       attendance: Attendance,
