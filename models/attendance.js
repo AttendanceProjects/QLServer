@@ -46,7 +46,7 @@ module.exports = {
     }
 
     extend type Mutation {
-      createAtt ( code: String, token: String, $start_image: String ): Attendance,
+      createAtt ( code: String, token: String, start_image: String ): Attendance,
       updateAtt ( code: String, token: String, id: String ): PackageAttendance
     }
   `,
