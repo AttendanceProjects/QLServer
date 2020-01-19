@@ -17,7 +17,9 @@ module.exports = {
       _id: String
       UserId: UserAtt,
       start: String,
+      start_image: String,
       end: String,
+      end_image: String,
       date: String
     }
     type HistoryAtt {
@@ -44,7 +46,7 @@ module.exports = {
     }
 
     extend type Mutation {
-      createAtt ( code: String, token: String ): Attendance,
+      createAtt ( code: String, token: String, $start_image: String ): Attendance,
       updateAtt ( code: String, token: String, id: String ): PackageAttendance
     }
   `,
@@ -56,8 +58,8 @@ module.exports = {
       }
     },
     Mutation: {
-      createAtt: async ( _, { code, token } ) => {
-        try { return await createStart({ code, token }) }
+      createAtt: async ( _, { code, token, start_image } ) => {
+        try { return await createStart({ code, token, start_image }) }
         catch(err) { catchedErr( err ) }
       },
       updateAtt: async ( _, { code, token, id } ) => {

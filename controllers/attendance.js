@@ -7,8 +7,8 @@ module.exports = {
     const { data } = await chooseShot(code)({ method: 'get', url: base, headers: { token } });
     return data.attendance;
   },
-  createStart: async ({ code, token }) => {
-    const { data } = await chooseShot(code)({ method: 'post', url: base, headers: { token } });
+  createStart: async ({ code, token, start_image }) => {
+    const { data } = await chooseShot(code)({ method: 'post', url: base, headers: { token }, data: { start_image } });
     return data.attendance;
   },
   updateEnd: async ({ code, token, id }) => {
