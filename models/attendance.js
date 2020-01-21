@@ -18,10 +18,11 @@ module.exports = {
       UserId: UserAtt,
       start: String,
       start_image: String,
+      start_issues: String,
       end: String,
       end_image: String,
-      date: String,
-      issues: String
+      end_issues: String,
+      date: String
     }
     type HistoryAtt {
       _id: String
