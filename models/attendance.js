@@ -24,8 +24,7 @@ module.exports = {
     }
     type HistoryAtt {
       _id: String
-      AttendanceId: String,
-      UserId: String,
+      AttendanceId: Attendance,
       date: String
     }
     type Image {
@@ -36,18 +35,13 @@ module.exports = {
       _parts: [[ String ]]
     }
 
-    type PackageAttendance {
-      attendance: Attendance,
-      history: HistoryAtt
-    }
-
     extend type Query {
       userAtt ( code: String, token: String ): Attendance
     }
 
     extend type Mutation {
       createAtt ( code: String, token: String, start_image: String ): Attendance,
-      updateAtt ( code: String, token: String, id: String, end_image: String ): PackageAttendance
+      updateAtt ( code: String, token: String, id: String, end_image: String ): HistoryAtt
     }
   `,
   resolveAttendance: {
