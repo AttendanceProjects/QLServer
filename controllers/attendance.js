@@ -11,8 +11,8 @@ module.exports = {
     const { data } = await chooseShot(code)({ method: 'post', url: base, headers: { token }, data: { start_image } });
     return data.attendance;
   },
-  updateEnd: async ({ code, token, id }) => {
-    const { data } = await chooseShot(code)({ method: 'patch', url: `${base}/${id}`, headers: { token } });
+  updateEnd: async ({ code, token, id, end_image }) => {
+    const { data } = await chooseShot(code)({ method: 'patch', url: `${base}/${id}`, headers: { token }, data: { end_image } });
     return data;
   }
 }

@@ -47,7 +47,7 @@ module.exports = {
 
     extend type Mutation {
       createAtt ( code: String, token: String, start_image: String ): Attendance,
-      updateAtt ( code: String, token: String, id: String ): PackageAttendance
+      updateAtt ( code: String, token: String, id: String, end_image: String ): PackageAttendance
     }
   `,
   resolveAttendance: {
@@ -62,8 +62,8 @@ module.exports = {
         try { return await createStart({ code, token, start_image }) }
         catch(err) { catchedErr( err ) }
       },
-      updateAtt: async ( _, { code, token, id } ) => {
-        try { return await updateEnd({ code, token, id }) }
+      updateAtt: async ( _, { code, token, id, end_image } ) => {
+        try { return await updateEnd({ code, token, id, end_image }) }
         catch(err) { catchedErr( err ) }
       }
     }
