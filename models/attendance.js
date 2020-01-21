@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server'),
   { AttendanceController } = require('../controllers'),
   { catchedErr } = require('../helpers'),
-  { createStart, attUser, updateEnd } = AttendanceController
+  { createStart, attUser, updateEnd, updateTruth } = AttendanceController
 
 module.exports = {
   typeAttendance: gql`
@@ -20,7 +20,8 @@ module.exports = {
       start_image: String,
       end: String,
       end_image: String,
-      date: String
+      date: String,
+      issues: String
     }
     type HistoryAtt {
       _id: String
@@ -41,7 +42,8 @@ module.exports = {
 
     extend type Mutation {
       createAtt ( code: String, token: String, start_image: String ): Attendance,
-      updateAtt ( code: String, token: String, id: String, end_image: String ): HistoryAtt
+      updateAtt ( code: String, token: String, id: String, end_image: String ): HistoryAtt,
+      updateTruth ( code: String, token: String, type: String, issues: String, id: String ): Attendance
     }
   `,
   resolveAttendance: {
@@ -58,6 +60,10 @@ module.exports = {
       },
       updateAtt: async ( _, { code, token, id, end_image } ) => {
         try { return await updateEnd({ code, token, id, end_image }) }
+        catch(err) { catchedErr( err ) }
+      },
+      updateTruth: async (_,{ code, token, issues, type, id }) => {
+        try { return await updateTruth({ code, token, id, issues, type }) }
         catch(err) { catchedErr( err ) }
       }
     }
