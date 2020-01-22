@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server'),
   { AttendanceController } = require('../controllers'),
   { catchedErr } = require('../helpers'),
-  { createStart, attUser, updateEnd, updateTruth } = AttendanceController
+  { createStart, attUser, updateEnd, updateLocation } = AttendanceController
 
 module.exports = {
   typeAttendance: gql`
@@ -13,15 +13,22 @@ module.exports = {
       email: String,
       role: String,
     }
+    type LocationAtt {
+      latitude: String,
+      longitude: String
+    }
     type Attendance {
       _id: String
       UserId: UserAtt,
       start: String,
       start_image: String,
       start_issues: String,
+      start_location: LocationAtt,
       end: String,
       end_image: String,
       end_issues: String,
+      end_location: LocationAtt,
+      end_reason: String
       date: String
     }
     type HistoryAtt {
@@ -44,7 +51,7 @@ module.exports = {
     extend type Mutation {
       createAtt ( code: String, token: String, start_image: String ): Attendance,
       updateAtt ( code: String, token: String, id: String, end_image: String ): HistoryAtt,
-      updateTruth ( code: String, token: String, type: String, issues: String, id: String ): Attendance
+      locUpdate ( code: String, token: String, os: String, type: String, id: String, latitude: String, longitude: String, accuracy: Int, reason: String ): Attendance
     }
   `,
   resolveAttendance: {
@@ -63,8 +70,8 @@ module.exports = {
         try { return await updateEnd({ code, token, id, end_image }) }
         catch(err) { catchedErr( err ) }
       },
-      updateTruth: async (_,{ code, token, issues, type, id }) => {
-        try { return await updateTruth({ code, token, id, issues, type }) }
+      locUpdate: async ( _, { code, token, os, type, id, latitude, longitude, accuracy, reason } ) => {
+        try { return await updateLocation({ code, token, os, type, id , latitude, longitude, accuracy, reason }) }
         catch(err) { catchedErr( err ) }
       }
     }
