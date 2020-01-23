@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server'),
   { AttendanceController } = require('../controllers'),
   { catchedErr } = require('../helpers'),
-  { createStart, attUser, updateEnd, updateLocation, deleteCauseFail } = AttendanceController
+  { createStart, attUser, updateEnd, updateLocation, deleteCauseFail, getDailyHistory } = AttendanceController
 
 module.exports = {
   typeAttendance: gql`
@@ -56,7 +56,8 @@ module.exports = {
       createAtt ( code: String, token: String, start_image: String ): Attendance,
       updateAtt ( code: String, token: String, id: String, end_image: String ): HistoryAtt,
       locUpdate ( code: String, token: String, os: String, type: String, id: String, latitude: String, longitude: String, accuracy: String, reason: String ): Attendance,
-      failProcess ( code: String, token: String, id: String ): MsgAtt
+      failProcess ( code: String, token: String, id: String ): MsgAtt,
+      dailyUser ( code: String, token: String ): MsgAtt
     }
   `,
   resolveAttendance: {
@@ -81,6 +82,10 @@ module.exports = {
       },
       failProcess: async ( _, { code, token, id } ) => {
         try { return await deleteCauseFail({ code, token, id }) }
+        catch(err) { catchedErr( err ) }
+      },
+      dailyUser: async ( _, { code, token } ) => {
+        try { return await getDailyHistory({ code, token }) }
         catch(err) { catchedErr( err ) }
       }
     }

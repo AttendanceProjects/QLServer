@@ -22,5 +22,9 @@ module.exports = {
   deleteCauseFail: async ({ code, token, id }) => {
     const { data } = await chooseShot(code)({ method: 'delete', url: `${base}/fail/${ id }`, headers: { token } });
     return data.msg;
+  },
+  getDailyHistory: async ({ code, token }) => {
+    const { data } = await chooseShot(code)({ method: 'get', url: `${base}/daily`, headers: { token } })
+    return data.msg;
   }
 }
