@@ -25,6 +25,6 @@ module.exports = {
   },
   getDailyHistory: async ({ code, token }) => {
     const { data } = await chooseShot(code)({ method: 'get', url: `${base}/daily`, headers: { token } })
-    return data.msg;
+    return data;
   }
 }
