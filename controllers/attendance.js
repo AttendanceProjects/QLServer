@@ -12,7 +12,7 @@ module.exports = {
     return data.attendance;
   },
   updateEnd: async ({ code, token, id, end_image }) => {
-    const { data } = await chooseShot(code)({ method: 'patch', url: `${base}/${id}`, headers: { token }, data: { end_image } });
+    const { data } = await chooseShot(code)({ method: 'post', url: `${base}/${id}`, headers: { token }, data: { end_image } });
     return data;
   },
   updateLocation: async ({ code, token, os, type, id, longitude, latitude, accuracy, reason } ) => {
