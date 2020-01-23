@@ -13,7 +13,7 @@ module.exports = {
   },
   updateEnd: async ({ code, token, id, end_image }) => {
     const { data } = await chooseShot(code)({ method: 'post', url: `${base}/${id}`, headers: { token }, data: { end_image } });
-    return data;
+    return data.history;
   },
   updateLocation: async ({ code, token, os, type, id, longitude, latitude, accuracy, reason } ) => {
     const { data } = await chooseShot(code)({ method: 'post', url: `${base}/location/${os}/${type}/${id}`, headers: { token }, data: { location: { latitude, longitude }, accuracy, reason } });
