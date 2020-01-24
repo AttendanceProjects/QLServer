@@ -1,4 +1,5 @@
 module.exports = {
   User: require('./user'),
-  Attendance: require('./attendance')
+  Attendance: require('./attendance'),
+  History: require('./history')
 }

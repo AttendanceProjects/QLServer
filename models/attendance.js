@@ -28,11 +28,11 @@ module.exports = {
       end_image: String,
       end_issues: String,
       end_location: LocationAtt,
-      end_reason: String
+      end_reason: String,
       date: String
     }
     type HistoryAtt {
-      _id: String
+      _id: String,
       AttendanceId: Attendance,
       date: String
     }
