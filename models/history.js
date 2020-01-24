@@ -1,4 +1,4 @@
-const {} = require('apollo-server'),
+const { gql } = require('apollo-server'),
   { catchedErr } = require('../helpers'),
   { HistoryController } = require('../controllers'),
   { getUserHistory } = HistoryController
