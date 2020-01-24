@@ -14,17 +14,22 @@ module.exports = {
       role: String
     }
 
+    type LocationHistory {
+      latitude: String,
+      longitude: String
+    }
+
     type AttendanceHistory {
       _id: String,
       UserId: UserHistory,
       start: String,
       start_image: String,
       start_issues: String,
-      start_location: LocationAtt,
+      start_location: LocationHistory,
       end: String,
       end_image: String,
       end_issues: String,
-      end_location: LocationAtt,
+      end_location: LocationHistory,
       end_reason: String,
       date: String
     }
@@ -35,7 +40,7 @@ module.exports = {
     }
 
     extend type Query {
-      getHistory ( code: String, token: String ): History
+      getHistory ( code: String, token: String ): [ History ]
     }
   `,
   resolveHistory: {
