@@ -1,8 +1,8 @@
 const { ApolloServer, gql, makeExecutableSchema } = require('apollo-server'),
-  { User, Attendance, History } = require('./models'),
+  { User, Attendance, Company } = require('./models'),
   { typeUser, resolveUser } = User,
   { typeAttendance, resolveAttendance } = Attendance,
-  { typeHistory, resolveHistory } = History
+  { typeCompany, resolveCompany } = Company
   
 
   typeDefs = gql`
@@ -14,8 +14,8 @@ const { ApolloServer, gql, makeExecutableSchema } = require('apollo-server'),
 const server = new ApolloServer(
   { 
     schema: makeExecutableSchema({
-      typeDefs: [ typeDefs, typeUser, typeAttendance, typeHistory ],
-      resolvers: [ resolveUser, resolveAttendance, resolveHistory ]
+      typeDefs: [ typeDefs, typeUser, typeAttendance, typeCompany ],
+      resolvers: [ resolveUser, resolveAttendance, resolveCompany ]
     })
   }
 )
