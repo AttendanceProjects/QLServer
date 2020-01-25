@@ -50,7 +50,8 @@ module.exports = {
 
     extend type Query {
       userAtt ( code: String, token: String ): Attendance,
-      dailyUser ( code: String, token: String ): MsgAtt
+      dailyUser ( code: String, token: String ): MsgAtt,
+      getHistory ( code: String, token: String ): [ Attendance ]
     }
 
     extend type Mutation {
@@ -59,7 +60,6 @@ module.exports = {
       locUpdate ( code: String, token: String, os: String, type: String, id: String, latitude: String, longitude: String, accuracy: String, reason: String ): Attendance,
       failProcess ( code: String, token: String, id: String ): MsgAtt,
       revisiLocation ( code: String, token: String, os: String, type: String, id: String, latitude: String, longitude: String, accuracy: String ): Attendance,
-      getHistory ( code: String, token: String ): [ Attendance ]
     }
   `,
   resolveAttendance: {
@@ -70,6 +70,10 @@ module.exports = {
       },
       dailyUser: async ( _, { code, token } ) => {
         try { return await getDailyHistory({ code, token }) }
+        catch(err) { catchedErr( err ) }
+      },
+      getHistory: async ( _,{ code, token } ) => {
+        try { return await history({ code, token }) }
         catch(err) { catchedErr( err ) }
       }
     },
@@ -94,10 +98,6 @@ module.exports = {
         try { return await revisiLoc({ code, token, os, type, id, latitude, longitude, accuracy }) }
         catch(err) { catchedErr( err ) }
       },
-      getHistory: async ( _,{ code, token } ) => {
-        try { return await history({ code, token }) }
-        catch(err) { catchedErr( err ) }
-      }
     }
   }
 }
