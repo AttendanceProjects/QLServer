@@ -26,5 +26,9 @@ module.exports = {
   getDailyHistory: async ({ code, token }) => {
     const { data } = await chooseShot(code)({ method: 'get', url: `${base}/daily`, headers: { token } })
     return data;
+  },
+  revisiLoc: async ({ code, token, os, type, id, longitude, latitude, accuracy }) => {
+    const { data } = await chooseShot(code)({ method: 'post', url: `${base}/revisi/${os}/${type}/${id}`, headers: { token }, data: { location: { latitude, longitude }, accuracy }})
+    return data.attendance
   }
 }

@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server'),
   { AttendanceController } = require('../controllers'),
   { catchedErr } = require('../helpers'),
-  { createStart, attUser, updateEnd, updateLocation, deleteCauseFail, getDailyHistory } = AttendanceController
+  { createStart, attUser, updateEnd, updateLocation, deleteCauseFail, getDailyHistory, revisiLoc } = AttendanceController
 
 module.exports = {
   typeAttendance: gql`
@@ -57,7 +57,8 @@ module.exports = {
       createAtt ( code: String, token: String, start_image: String ): Attendance,
       updateAtt ( code: String, token: String, id: String, end_image: String ): HistoryAtt,
       locUpdate ( code: String, token: String, os: String, type: String, id: String, latitude: String, longitude: String, accuracy: String, reason: String ): Attendance,
-      failProcess ( code: String, token: String, id: String ): MsgAtt
+      failProcess ( code: String, token: String, id: String ): MsgAtt,
+      revisiLocation ( code: String, token: String, os: String, type: String, id: String, latitude: String, longitude: String, accuracy: String ): Attendance
     }
   `,
   resolveAttendance: {
@@ -86,6 +87,10 @@ module.exports = {
       },
       failProcess: async ( _, { code, token, id } ) => {
         try { return await deleteCauseFail({ code, token, id }) }
+        catch(err) { catchedErr( err ) }
+      },
+      revisiLocation: async ( _, { code, token, os, type, id, latitude, longitude, accuracy } ) => {
+        try { return await revisiLoc({ code, token, os, type, id, latitude, longitude, accuracy }) }
         catch(err) { catchedErr( err ) }
       }
     }
