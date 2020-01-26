@@ -29,6 +29,6 @@ module.exports = {
   },
   changePassword: async ({ code, newPass, oldPass, token }) => {
     const { data } = await chooseShot(code)({ method: 'post', url: `${ base }/change`, data: { newPass, oldPass }, headers: { token } });
-    return data.user;
+    return data.msg;
   }
 }

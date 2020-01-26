@@ -38,7 +38,7 @@ module.exports = {
       signin ( code: String, request: String, password: String ): PackageUser,
       forgot ( code: String, email: String ): MsgUser,
       confirm ( code: String, newPass: String, secretCode: String ): User,
-      changePass ( code: String, newPass: String, token: String, oldPass: String ): User
+      changePass ( code: String, newPass: String, token: String, oldPass: String ): MsgUser
     }
   `,
   resolveUser: {
