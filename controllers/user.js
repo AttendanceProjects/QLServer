@@ -15,8 +15,8 @@ module.exports = {
     const { data } = await chooseShot(code)({ method: 'post', url: `${ base }/signin`, data: { request, password } });
     return data;
   },
-  signup: async ({ code, username, password, email, role }) => {
-    const { data } = await chooseShot(code)({ method: 'post', url: `${ base }/signup`, data: { username, email, role, password } });
+  signup: async ({ code, username, password, email, role, phone, identityNumber, religion, gender }) => {
+    const { data } = await chooseShot(code)({ method: 'post', url: `${ base }/signup`, data: { username, email, role, password, phone, identityNumber, religion, gender } });
     return data.user;
   },
   forgotPassword: async ({ code, email }) => {

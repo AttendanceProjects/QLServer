@@ -11,7 +11,12 @@ module.exports = {
       password: String,
       profile_image: String,
       email: String,
-      role: String
+      role: String,
+      join: String,
+      phone: String,
+      identityNumber: Int,
+      religion: String,
+      gender: String
     }
 
     type PackageUser {
@@ -48,8 +53,8 @@ module.exports = {
       }
     },
     Mutation: {
-      signup: async ( _, { code, username, email, role, password } ) => {
-        try { return await signup({ code, username, email, role, password }) }
+      signup: async ( _, { code, username, email, role, password, phone, identityNumber, religion, gender } ) => {
+        try { return await signup({ code, username, email, role, password, phone, identityNumber, religion, gender }) }
         catch(err) { catchedErr( err ) }
       },
       signin: async ( _, { code, request, password } ) => {
