@@ -27,8 +27,8 @@ module.exports = {
     const { data } = await chooseShot(code)({ method: 'post', url: `${ base }/forgot/confirm`, data: { secretCode, newPass } });
     return data.user
   },
-  changePassword: async ({ code, newPass, token }) => {
-    const { data } = await chooseShot(code)({ method: 'post', url: `${ base }/change`, data: { newPass }, headers: { token } });
+  changePassword: async ({ code, newPass, oldPass, token }) => {
+    const { data } = await chooseShot(code)({ method: 'post', url: `${ base }/change`, data: { newPass, oldPass }, headers: { token } });
     return data.user;
   }
 }
