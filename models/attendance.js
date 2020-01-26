@@ -52,8 +52,8 @@ module.exports = {
 
     extend type Mutation {
       createAtt ( code: String, token: String, start_image: String ): Attendance,
-      updateAtt ( code: String, token: String, id: String, end_image: String ): Attendance,
-      locUpdate ( code: String, token: String, os: String, type: String, id: String, latitude: String, longitude: String, accuracy: String, reason: String ): Attendance,
+      updateAtt ( code: String, token: String, id: String, end_image: String, reason: String ): Attendance,
+      locUpdate ( code: String, token: String, os: String, type: String, id: String, latitude: String, longitude: String, accuracy: String ): Attendance,
       failProcess ( code: String, token: String, id: String ): MsgAtt,
       revisiLocation ( code: String, token: String, os: String, type: String, id: String, latitude: String, longitude: String, accuracy: String ): Attendance,
     }
@@ -78,12 +78,12 @@ module.exports = {
         try { return await createStart({ code, token, start_image }) }
         catch(err) { catchedErr( err ) }
       },
-      updateAtt: async ( _, { code, token, id, end_image } ) => {
-        try { return await updateEnd({ code, token, id, end_image }) }
+      updateAtt: async ( _, { code, token, id, end_image, reason } ) => {
+        try { return await updateEnd({ code, token, id, end_image, reason }) }
         catch(err) { catchedErr( err ) }
       },
-      locUpdate: async ( _, { code, token, os, type, id, latitude, longitude, accuracy, reason } ) => {
-        try { return await updateLocation({ code, token, os, type, id , latitude, longitude, accuracy, reason }) }
+      locUpdate: async ( _, { code, token, os, type, id, latitude, longitude, accuracy } ) => {
+        try { return await updateLocation({ code, token, os, type, id , latitude, longitude, accuracy }) }
         catch(err) { catchedErr( err ) }
       },
       failProcess: async ( _, { code, token, id } ) => {

@@ -11,12 +11,12 @@ module.exports = {
     const { data } = await chooseShot(code)({ method: 'post', url: base, headers: { token }, data: { start_image } });
     return data.attendance;
   },
-  updateEnd: async ({ code, token, id, end_image }) => {
+  updateEnd: async ({ code, token, id, end_image, reason }) => {
     const { data } = await chooseShot(code)({ method: 'post', url: `${base}/${id}`, headers: { token }, data: { end_image } });
     return data.attendance;
   },
-  updateLocation: async ({ code, token, os, type, id, longitude, latitude, accuracy, reason } ) => {
-    const { data } = await chooseShot(code)({ method: 'post', url: `${base}/location/${os}/${type}/${id}`, headers: { token }, data: { location: { latitude, longitude }, accuracy, reason } });
+  updateLocation: async ({ code, token, os, type, id, longitude, latitude, accuracy } ) => {
+    const { data } = await chooseShot(code)({ method: 'post', url: `${base}/location/${os}/${type}/${id}`, headers: { token }, data: { location: { latitude, longitude }, accuracy } });
     return data.attendance;
   },
   deleteCauseFail: async ({ code, token, id }) => {
