@@ -12,11 +12,11 @@ module.exports = {
     return data.attendance;
   },
   updateEnd: async ({ code, token, id, end_image }) => {
-    const { data } = await chooseShot(code)({ method: 'post', url: `${base}/${id}`, headers: { token }, data: { end_image } });
+    const { data } = await chooseShot(code)({ method: 'patch', url: `${base}/${id}`, headers: { token }, data: { end_image } });
     return data.attendance;
   },
   updateLocation: async ({ code, token, os, type, id, longitude, latitude, accuracy, reason } ) => {
-    const { data } = await chooseShot(code)({ method: 'post', url: `${base}/location/${os}/${type}/${id}`, headers: { token }, data: { location: { latitude, longitude }, accuracy, reason } });
+    const { data } = await chooseShot(code)({ method: 'patch', url: `${base}/location/${os}/${type}/${id}`, headers: { token }, data: { location: { latitude, longitude }, accuracy, reason } });
     return data.attendance;
   },
   deleteCauseFail: async ({ code, token, id }) => {
@@ -28,11 +28,15 @@ module.exports = {
     return data;
   },
   revisiLoc: async ({ code, token, os, type, id, longitude, latitude, accuracy }) => {
-    const { data } = await chooseShot(code)({ method: 'post', url: `${base}/revisi/${os}/${type}/${id}`, headers: { token }, data: { location: { latitude, longitude }, accuracy }})
+    const { data } = await chooseShot(code)({ method: 'patch', url: `${base}/revisi/${os}/${type}/${id}`, headers: { token }, data: { location: { latitude, longitude }, accuracy }})
     return data.attendance;
   },
   history: async ({ code, token }) => {
     const { data } = await chooseShot(code)({ method: 'get', url: `${base}/history`, headers: { token } })
+    return data.attendance;
+  },
+  findAttId: async ({ code, token, id }) => {
+    const { data } = await chooseShot(code)({ method: 'get', url: `${base}/${id}`, headers: { token } })
     return data.attendance;
   }
 }
