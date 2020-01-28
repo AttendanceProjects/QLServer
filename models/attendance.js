@@ -48,7 +48,7 @@ module.exports = {
       userAtt ( code: String, token: String ): Attendance,
       dailyUser ( code: String, token: String ): MsgAtt,
       getHistory ( code: String, token: String ): [ Attendance ],
-      findAttId ( code: String, token: Strin, id: String ): Attendance
+      findAttId ( code: String, token: String, id: String ): Attendance
     }
 
     extend type Mutation {
