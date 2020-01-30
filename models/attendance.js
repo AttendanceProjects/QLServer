@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server'),
   { AttendanceController } = require('../controllers'),
   { catchedErr } = require('../helpers'),
-  { createStart, attUser, updateEnd, updateLocation, deleteCauseFail, getDailyHistory, revisiLoc, history, findAttId } = AttendanceController
+  { createStart, attUser, updateEnd, updateLocation, findFilter, deleteCauseFail, getDailyHistory, revisiLoc, history, findAttId } = AttendanceController
 
 module.exports = {
   typeAttendance: gql`
@@ -24,6 +24,7 @@ module.exports = {
       start_image: String,
       start_issues: String,
       start_location: LocationAtt,
+      start_reason: String,
       end: String,
       end_image: String,
       end_issues: String,
@@ -48,11 +49,12 @@ module.exports = {
       userAtt ( code: String, token: String ): Attendance,
       dailyUser ( code: String, token: String ): MsgAtt,
       getHistory ( code: String, token: String ): [ Attendance ],
-      findAttId ( code: String, token: String, id: String ): Attendance
+      findAttId ( code: String, token: String, id: String ): Attendance,
+      filter ( code: String, token: String, category: String ): Attendance;
     }
 
     extend type Mutation {
-      createAtt ( code: String, token: String, start_image: String ): Attendance,
+      createAtt ( code: String, token: String, start_image: String, start_reason: String ): Attendance,
       updateAtt ( code: String, token: String, id: String, end_image: String ): Attendance,
       locUpdate ( code: String, token: String, os: String, type: String, id: String, latitude: String, longitude: String, accuracy: String, reason: String ): Attendance,
       failProcess ( code: String, token: String, id: String ): MsgAtt,
@@ -76,11 +78,15 @@ module.exports = {
       findAttId: async ( _,{ code, token, id }) => {
         try { return await findAttId({ code, token, id }) }
         catch(err) { catchedErr( err ) }
+      },
+      filter: async ( _,{ code, token, category}) => {
+        try { return await findFilter({ code, token, category }) }
+        catch(err) { catchedErr( err ) }
       }
     },
     Mutation: {
-      createAtt: async ( _, { code, token, start_image } ) => {
-        try { return await createStart({ code, token, start_image }) }
+      createAtt: async ( _, { code, token, start_image, start_reason } ) => {
+        try { return await createStart({ code, token, start_image, start_reason }) }
         catch(err) { catchedErr( err ) }
       },
       updateAtt: async ( _, { code, token, id, end_image } ) => {

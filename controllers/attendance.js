@@ -7,8 +7,8 @@ module.exports = {
     const { data } = await chooseShot(code)({ method: 'get', url: base, headers: { token } });
     return data.attendance;
   },
-  createStart: async ({ code, token, start_image }) => {
-    const { data } = await chooseShot(code)({ method: 'post', url: base, headers: { token }, data: { start_image } });
+  createStart: async ({ code, token, start_image, start_reason }) => {
+    const { data } = await chooseShot(code)({ method: 'post', url: base, headers: { token }, data: { start_image, start_reason } });
     return data.attendance;
   },
   updateEnd: async ({ code, token, id, end_image }) => {
@@ -37,6 +37,10 @@ module.exports = {
   },
   findAttId: async ({ code, token, id }) => {
     const { data } = await chooseShot(code)({ method: 'get', url: `${base}/${id}`, headers: { token } })
+    return data.attendance;
+  },
+  findFilter: async ({ code, token, category }) => {
+    const { data } = await chooseShot(code)({ method: 'get', url: `${base}/search/by?category=${category}`, headers: { token } });
     return data.attendance;
   }
 }
