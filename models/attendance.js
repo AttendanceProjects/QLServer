@@ -79,8 +79,8 @@ module.exports = {
         try { return await findAttId({ code, token, id }) }
         catch(err) { catchedErr( err ) }
       },
-      filter: async ( _,{ code, token, category }) => {
-        try { return await findFilter({ code, token, category }) }
+      filter: async ( _,{ code, token, category, search }) => {
+        try { return await findFilter({ code, token, category, search }) }
         catch(err) { catchedErr( err ) }
       }
     },
