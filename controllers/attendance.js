@@ -4,11 +4,11 @@ var base = '/attendance';
 
 module.exports = {
   attUser: async ({ code, token }) => {
-    const { data } = await chooseShot(code)({ method: 'get', url: base, headers: { token } });
+    const { data: { attendance } } = await chooseShot(code)({ method: 'get', url: base, headers: { token } });
     return attendance;
   },
   createStart: async ({ code, token, start_image, start_reason }) => {
-    const { data } = await chooseShot(code)({ method: 'post', url: base, headers: { token }, data: { start_image, start_reason } });
+    const { data: { attendance} } = await chooseShot(code)({ method: 'post', url: base, headers: { token }, data: { start_image, start_reason } });
     return attendance;
   },
   updateEnd: async ({ code, token, id, end_image }) => {
