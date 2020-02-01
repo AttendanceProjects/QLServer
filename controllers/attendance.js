@@ -41,7 +41,7 @@ module.exports = {
   },
   findFilter: async ({ code, token, category, search }) => {
     if( search ) {
-      const { data: { attendance } } = await chooseShot(code)({ method: 'get', url: `${base}/search/by?category=${category}?search=${search}`, headers: { token } });
+      const { data: { attendance } } = await chooseShot(code)({ method: 'get', url: `${base}/search/by?category=${category}&search=${search}`, headers: { token } });
       return attendance;
     }else {
       const { data: { attendance } } = await chooseShot(code)({ method: 'get', url: `${base}/search/by?category=${category}`, headers: { token } });
