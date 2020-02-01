@@ -40,7 +40,7 @@ module.exports = {
     return attendance;
   },
   findFilter: async ({ code, token, category, search }) => {
-    if( search ) {
+    if( category === 'date' ){
       const { data: { attendance } } = await chooseShot(code)({ method: 'get', url: `${base}/search/by?category=${category}&search=${search}`, headers: { token } });
       return attendance;
     }else {
