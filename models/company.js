@@ -21,6 +21,7 @@ module.exports = {
 
 
     type Company {
+      _id: String,
       company_name: String,
       location: LocationCompany,
       start: String,

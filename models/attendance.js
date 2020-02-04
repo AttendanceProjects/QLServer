@@ -33,14 +33,6 @@ module.exports = {
       date: String
     }
     
-    type Image {
-      url: String
-    }
-
-    type FormData {
-      _parts: [[ String ]]
-    }
-
     type MsgAtt {
       msg: String
     }
