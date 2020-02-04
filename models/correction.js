@@ -5,7 +5,8 @@ const { gql } = require('apollo-server'),
     getUserCorrection,
     createACorrection,
     filterCorrection,
-    responCorrection
+    responCorrection,
+    seeReqIn
   } = CorrectionController
 
 module.exports = {
@@ -50,8 +51,9 @@ module.exports = {
     }
 
     extend type Query {
-      userCorrection ( code: String, token: String ) : Correction,
-      filterCorrection ( code: String, token: String, key: String ): Correction
+      userCorrection ( code: String, token: String ) : [ Correction ],
+      filterCorrection ( code: String, token: String, key: String ): [ Correction ],
+      reqIn ( code: String, token: String ): [ Correction ]
     }
 
     extend type Mutation {
@@ -67,6 +69,10 @@ module.exports = {
       },
       filterCorrection: async ( _, { code, token, key }) => {
         try { return await filterCorrection({ code, token, key }) }
+        catch(err) { catchedErr( err ) }
+      },
+      reqIn: async ( _, { code, token } ) => {
+        try { return await seeReqIn({ code, token }) }
         catch(err) { catchedErr( err ) }
       }
     },
