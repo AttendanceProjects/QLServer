@@ -47,5 +47,9 @@ module.exports = {
       const { data: { attendance } } = await chooseShot(code)({ method: 'get', url: `${base}/search/by?category=${category}`, headers: { token } });
       return attendance;
     }
+  },
+  checkAtt: async ({ code, token, id }) => {
+    const { data: { msg } } = await chooseShot(code)({ method: 'get', url: `${base}/check/${id}`, headers: { token } });
+    return msg;
   }
 }
