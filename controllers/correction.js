@@ -12,7 +12,7 @@ module.exports = {
   },
   createACorrection: async ({ code, token, id, reason, image, start_time, end_time }) => {
     const { data } = await chooseShot(code)({ method: 'post', url: `${ base }`, headers: { token }, data: { reason, image, start_time, end_time, id } });
-    return data.msg;
+    return data;
   },
   responCorrection: async ({ code, token, id, res }) => {
     const { data } = await chooseShot(code)({ method: 'patch', url: `${base}/${id}/${res}`, headers: { token } });
