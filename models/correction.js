@@ -79,8 +79,8 @@ module.exports = {
       }
     },
     Mutation: {
-      createCorrection: async ( _, { code, token, reason, image, start_time, end_time }) => {
-        try { return await createACorrection({ code, token, reason, image, start_time, end_time }) }
+      createCorrection: async ( _, { code, token, reason, id, image, start_time, end_time }) => {
+        try { return await createACorrection({ code, token, id, reason, image, start_time, end_time }) }
         catch(err) { catchedErr( err ) }
       },
       responseCorrection: async ( _, { code, token, id, res }) => {
