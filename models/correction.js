@@ -44,7 +44,9 @@ module.exports = {
       reason: String,
       image: String,
       start: String,
+      start_time: String,
       end: String,
+      end_time: String,
       status: String,
       createdAt: String,
       updatedAt: String
@@ -57,7 +59,7 @@ module.exports = {
     }
 
     extend type Mutation {
-      createCorrection ( code: String, token: String, reason: String, image: String ): MsgCorrection,
+      createCorrection ( code: String, token: String, reason: String, image: String, start_time: String, end_time: String ): MsgCorrection,
       responseCorrection ( code: String, token: String, res: String, id: String ): Correction 
     }
   `,
@@ -77,8 +79,8 @@ module.exports = {
       }
     },
     Mutation: {
-      createCorrection: async ( _, { code, token, reason, image }) => {
-        try { return await createACorrection({ code, token, reason, image }) }
+      createCorrection: async ( _, { code, token, reason, image, start_time, end_time }) => {
+        try { return await createACorrection({ code, token, reason, image, start_time, end_time }) }
         catch(err) { catchedErr( err ) }
       },
       responseCorrection: async ( _, { code, token, id, res }) => {

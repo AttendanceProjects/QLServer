@@ -10,8 +10,8 @@ module.exports = {
     const { data } = await chooseShot(code)({ method: 'get', url: `${base}/search?key=${ key }`, headers: { token } });
     return data.correction;
   },
-  createACorrection: async ({ code, token, reason, image }) => {
-    const { data } = await chooseShot(code)({ method: 'post', url: base, headers: { token }, data: { reason, image } });
+  createACorrection: async ({ code, token, reason, image, start_time, end_time }) => {
+    const { data } = await chooseShot(code)({ method: 'post', url: base, headers: { token }, data: { reason, image, start_time, end_time } });
     return data.msg;
   },
   responCorrection: async ({ code, token, id, res }) => {
