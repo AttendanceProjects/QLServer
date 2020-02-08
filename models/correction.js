@@ -59,7 +59,7 @@ module.exports = {
     }
 
     extend type Mutation {
-      createCorrection ( code: String, token: String, reason: String, image: String, start_time: String, end_time: String ): MsgCorrection,
+      createCorrection ( code: String, token: String, reason: String, image: String, start_time: String, end_time: String, id: String ): MsgCorrection,
       responseCorrection ( code: String, token: String, res: String, id: String ): Correction 
     }
   `,
