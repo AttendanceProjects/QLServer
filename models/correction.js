@@ -16,7 +16,7 @@ module.exports = {
       latitude: String,
       longitude: String
     }
-    type AttendanceId {
+    type AttendanceCorrectionId {
       _id: String,
       UserId: String,
       start: String,
@@ -39,7 +39,7 @@ module.exports = {
 
     type Correction {
       _id: String,
-      AttId: AttendanceId,
+      AttId: AttendanceCorrectionId,
       UserId: String,
       reason: String,
       image: String,
