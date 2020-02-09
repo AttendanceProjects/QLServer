@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server'),
   { UserController } = require('../controllers'),
   { catchedErr } = require('../helpers'),
-  { checkSignin, getApproval, signup, signin, forgotPassword, confirmCode, changePassword } = UserController;
+  { checkSignin, getApproval, signup, signin, forgotPassword, confirmCode, changePassword, uploadProfile } = UserController;
   
 module.exports = {
   typeUser: gql`
@@ -75,7 +75,7 @@ module.exports = {
         catch(err) { catchedErr( err ) } 
       },
       updateProfile: async ( _, { code, token, image }) => {
-        try { return }
+        try { return await uploadProfile({ code, token, image })}
         catch(err) { catchedErr( err ) }
       }
     }
