@@ -38,7 +38,8 @@ module.exports = {
       signin ( code: String, request: String, password: String ): PackageUser,
       forgot ( code: String, email: String ): MsgUser,
       confirm ( code: String, newPass: String, secretCode: String ): User,
-      changePass ( code: String, newPass: String, token: String, oldPass: String ): MsgUser
+      changePass ( code: String, newPass: String, token: String, oldPass: String ): MsgUser,
+      updateProfile ( code: String, token: String, image: String ): User
     }
   `,
   resolveUser: {
@@ -72,6 +73,10 @@ module.exports = {
       changePass: async ( _, { code, newPass, token, oldPass } ) => {
         try { return await changePassword({ code, newPass, token, oldPass }) }
         catch(err) { catchedErr( err ) } 
+      },
+      updateProfile: async ( _, { code, token, image }) => {
+        try { return }
+        catch(err) { catchedErr( err ) }
       }
     }
   }
