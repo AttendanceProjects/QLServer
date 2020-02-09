@@ -11,6 +11,10 @@ module.exports = {
     const { data: { attendance} } = await chooseShot(code)({ method: 'post', url: base, headers: { token }, data: { start_image, start_reason } });
     return attendance;
   },
+  createOflineStart: async ({ code, token, start_image, start_reason, clock }) => {
+    const { data: { attendance } } = await chooseShot(code)({ method: 'post', url: `${base}/offline`, headers: { token }, data: { start_image, start_reason, clock } });
+    return attendance;
+  },
   updateEnd: async ({ code, token, id, end_image }) => {
     const { data: { attendance } } = await chooseShot(code)({ method: 'patch', url: `${base}/${id}`, headers: { token }, data: { end_image } });
     return attendance;

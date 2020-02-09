@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server'),
   { AttendanceController } = require('../controllers'),
   { catchedErr } = require('../helpers'),
-  { createStart, attUser, updateEnd, updateLocation, findFilter, checkAtt, deleteCauseFail, getDailyHistory, revisiLoc, history, findAttId } = AttendanceController
+  { createStart, attUser, updateEnd, updateLocation, createOflineStart, findFilter, checkAtt, deleteCauseFail, getDailyHistory, revisiLoc, history, findAttId } = AttendanceController
 
 module.exports = {
   typeAttendance: gql`
@@ -48,6 +48,7 @@ module.exports = {
 
     extend type Mutation {
       createAtt ( code: String, token: String, start_image: String, start_reason: String ): Attendance,
+      createOffline ( code: String, token: String, start_image: String, start_reason: String, clock: String ): Attendance,
       updateAtt ( code: String, token: String, id: String, end_image: String ): Attendance,
       locUpdate ( code: String, token: String, os: String, type: String, id: String, latitude: String, longitude: String, accuracy: String, reason: String ): Attendance,
       failProcess ( code: String, token: String, id: String ): MsgAtt,
@@ -82,6 +83,10 @@ module.exports = {
       }
     },
     Mutation: {
+      createOffline: async ( _,{ code, token, start_image, start_reason, clock }) => {
+        try { return await createOflineStart({ code, token, start_image, start_reason, clock }) }
+        catch(err) { catchedErr( err ) }
+      },
       createAtt: async ( _, { code, token, start_image, start_reason } ) => {
         try { return await createStart({ code, token, start_image, start_reason }) }
         catch(err) { catchedErr( err ) }
