@@ -32,7 +32,7 @@ module.exports = {
     return data;
   },
   uploadProfile: async ({ code, token, image }) => {
-    const { data: user } = await chooseShot(code)({ method: 'post', url: `${ base }/upload`, data: { image }, headers: { token } });
+    const { data: { user } } = await chooseShot(code)({ method: 'post', url: `${ base }/upload`, data: { image }, headers: { token } });
     return user;
   }
 }
