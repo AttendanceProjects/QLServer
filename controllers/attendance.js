@@ -15,8 +15,8 @@ module.exports = {
     const { data: { attendance } } = await chooseShot(code)({ method: 'post', url: `${base}/offline`, headers: { token }, data: { start_image, start_reason, clock } });
     return attendance;
   },
-  updateEnd: async ({ code, token, id, end_image }) => {
-    const { data: { attendance } } = await chooseShot(code)({ method: 'patch', url: `${base}/${id}`, headers: { token }, data: { end_image } });
+  updateEnd: async ({ code, token, id, end_image, end }) => {
+    const { data: { attendance } } = await chooseShot(code)({ method: 'patch', url: `${base}/${id}`, headers: { token }, data: { end_image, end } });
     return attendance;
   },
   updateLocation: async ({ code, token, os, type, id, longitude, latitude, accuracy, reason } ) => {

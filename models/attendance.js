@@ -91,8 +91,8 @@ module.exports = {
         try { return await createStart({ code, token, start_image, start_reason }) }
         catch(err) { catchedErr( err ) }
       },
-      updateAtt: async ( _, { code, token, id, end_image } ) => {
-        try { return await updateEnd({ code, token, id, end_image }) }
+      updateAtt: async ( _, { code, token, id, end_image, end } ) => {
+        try { return await updateEnd({ code, token, id, end_image, end }) }
         catch(err) { catchedErr( err ) }
       },
       locUpdate: async ( _, { code, token, os, type, id, latitude, longitude, accuracy, reason } ) => {
