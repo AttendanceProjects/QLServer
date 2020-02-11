@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server'),
   { UserController } = require('../controllers'),
   { catchedErr } = require('../helpers'),
-  { checkSignin, getApproval, signup, signin, forgotPassword, confirmCode, changePassword, uploadProfile, allEmployee } = UserController;
+  { checkSignin, getFilter, signup, signin, forgotPassword, confirmCode, changePassword, uploadProfile, allEmployee } = UserController;
   
 module.exports = {
   typeUser: gql`
@@ -30,7 +30,6 @@ module.exports = {
 
     extend type Query {
       checkSignin ( code: String, token: String ): User,
-      approval ( code: String, token: String ): [ User ],
       seeEmployee ( code: String, token: String ): [ User ]
     }
 
@@ -38,6 +37,7 @@ module.exports = {
       signup ( code: String, username: String, password: String, email: String, role: String ): User,
       signin ( code: String, request: String, password: String ): PackageUser,
       forgot ( code: String, email: String ): MsgUser,
+      filterEmployee ( code: String, token: String, search: String ): [ User ],
       confirm ( code: String, newPass: String, secretCode: String ): User,
       changePass ( code: String, newPass: String, token: String, oldPass: String ): MsgUser,
       updateProfile ( code: String, token: String, image: String ): User
@@ -47,10 +47,6 @@ module.exports = {
     Query: {
       checkSignin: async ( _, { code, token } ) => {
         try { return await checkSignin({ code, token }) }
-        catch(err) { catchedErr( err ) }
-      },
-      approval: async ( _, { code, token } ) => {
-        try { return await getApproval({ code, token }) }
         catch(err) { catchedErr( err ) }
       },
       seeEmployee: async ( _, { code, token } ) => {
@@ -65,6 +61,10 @@ module.exports = {
       },
       signin: async ( _, { code, request, password } ) => {
         try { return await signin({ code, request, password }) }
+        catch(err) { catchedErr( err ) }
+      },
+      filterEmployee: async ( _, { code, token, search } ) => {
+        try { return await getFilter({ code, token, search }) }
         catch(err) { catchedErr( err ) }
       },
       forgot: async ( _, { code, email } ) => {

@@ -7,8 +7,8 @@ module.exports = {
     const { data: { user } } = await chooseShot(code)({ method: 'get', url: `${ base }`, headers: { token } });
     return user;
   },
-  getApproval: async ({ code, token }) => {
-    const { data: { user } } = await chooseShot(code)({ method: 'get', url: `${ base }/approval`, headers: { token } });
+  getFilter: async ({ code, token, search }) => {
+    const { data: { user } } = await chooseShot(code)({ method: 'post', url: `${base}/find`, headers: { token }, data: { search } });
     return user;
   },
   signin: async ({ code, request, password }) => {
