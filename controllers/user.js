@@ -7,8 +7,8 @@ module.exports = {
     const { data: { user } } = await chooseShot(code)({ method: 'get', url: `${ base }`, headers: { token } });
     return user;
   },
-  getApproval: async ( code ) => {
-    const { data: { user } } = await chooseShot(code)({ method: 'get', url: `${ base }/approval` });
+  getApproval: async ({ code, token }) => {
+    const { data: { user } } = await chooseShot(code)({ method: 'get', url: `${ base }/approval`, headers: { token } });
     return user;
   },
   signin: async ({ code, request, password }) => {
@@ -33,6 +33,10 @@ module.exports = {
   },
   uploadProfile: async ({ code, token, image }) => {
     const { data: { user } } = await chooseShot(code)({ method: 'post', url: `${ base }/upload`, data: { image }, headers: { token } });
+    return user;
+  },
+  allEmployee: async ({ code, token }) => {
+    const { data: { user } } = await chooseShot(code)({ method: 'get', url: `${ base }/employee`, headers: { token } });
     return user;
   }
 }
