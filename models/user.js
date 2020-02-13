@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server'),
   { UserController } = require('../controllers'),
   { catchedErr } = require('../helpers'),
-  { checkSignin, getFilter, signup, signin, forgotPassword, confirmCode, changePassword, uploadProfile, allEmployee } = UserController;
+  { checkSignin, getFilter, signup, updatePin, signin, forgotPassword, confirmCode, changePassword, uploadProfile, allEmployee } = UserController;
   
 module.exports = {
   typeUser: gql`
@@ -16,7 +16,8 @@ module.exports = {
       phone: String,
       identityNumber: Int,
       religion: String,
-      gender: String
+      gender: String,
+      pin_security: String
     }
 
     type PackageUser {
@@ -40,7 +41,8 @@ module.exports = {
       filterEmployee ( code: String, token: String, search: String ): [ User ],
       confirm ( code: String, newPass: String, secretCode: String ): User,
       changePass ( code: String, newPass: String, token: String, oldPass: String ): MsgUser,
-      updateProfile ( code: String, token: String, image: String ): User
+      updateProfile ( code: String, token: String, image: String ): User,
+      changePin ( code: String, token: String, new_pin: String, old_ping: String ): UserController
     }
   `,
   resolveUser: {
@@ -81,6 +83,10 @@ module.exports = {
       },
       updateProfile: async ( _, { code, token, image }) => {
         try { return await uploadProfile({ code, token, image })}
+        catch(err) { catchedErr( err ) }
+      },
+      changePin: async ( _, { code, token, old_pin, new_pin }) => {
+        try { return await updatePin({ code, token, old_pin, new_pin }) }
         catch(err) { catchedErr( err ) }
       }
     }

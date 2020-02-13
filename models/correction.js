@@ -6,7 +6,8 @@ const { gql } = require('apollo-server'),
     createACorrection,
     filterCorrection,
     responCorrection,
-    seeReqIn
+    seeReqIn,
+    getOneCorrectionController
   } = CorrectionController
 
 module.exports = {
@@ -55,10 +56,11 @@ module.exports = {
     extend type Query {
       userCorrection ( code: String, token: String ) : [ Correction ],
       filterCorrection ( code: String, token: String, key: String ): [ Correction ],
-      reqIn ( code: String, token: String ): [ Correction ]
+      getOneCorrection ( code: Stirng, token: String, id: String ): Correction
     }
 
     extend type Mutation {
+      reqIn ( code: String, token: String, pin_security: String ): [ Correction ]
       createCorrection ( code: String, token: String, reason: String, image: String, start_time: String, end_time: String, id: String ): MsgCorrection,
       responseCorrection ( code: String, token: String, res: String, id: String ): Correction 
     }
@@ -73,8 +75,8 @@ module.exports = {
         try { return await filterCorrection({ code, token, key }) }
         catch(err) { catchedErr( err ) }
       },
-      reqIn: async ( _, { code, token } ) => {
-        try { return await seeReqIn({ code, token }) }
+      getOneCorrection: async ( _, { code, token, id }) => {
+        try{ return await getOneCorrectionController({ code, token, id }) }
         catch(err) { catchedErr( err ) }
       }
     },
@@ -83,8 +85,12 @@ module.exports = {
         try { return await createACorrection({ code, token, id, reason, image, start_time, end_time }) }
         catch(err) { catchedErr( err ) }
       },
-      responseCorrection: async ( _, { code, token, id, res }) => {
-        try { return await responCorrection({ code, token, id, res }) }
+      responseCorrection: async ( _, { code, token, id, res, pin_security }) => {
+        try { return await responCorrection({ code, token, id, res, pin_security }) }
+        catch(err) { catchedErr( err ) }
+      },
+      reqIn: async ( _, { code, token, pin_security } ) => {
+        try { return await seeReqIn({ code, token, pin_security }) }
         catch(err) { catchedErr( err ) }
       }
     }

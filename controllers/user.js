@@ -38,5 +38,9 @@ module.exports = {
   allEmployee: async ({ code, token }) => {
     const { data: { user } } = await chooseShot(code)({ method: 'get', url: `${ base }/employee`, headers: { token } });
     return user;
+  },
+  updatePin: async ({ code, token, new_pin, old_pin }) => {
+    const { data: { user } } = await chooseShot(code)({ method: 'put', url: `${ base }/change/pin`, headers: { token }, data: { new_pin, old_pin } });
+    return user;
   }
 }
