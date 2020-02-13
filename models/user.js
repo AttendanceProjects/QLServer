@@ -27,7 +27,7 @@ module.exports = {
 
     type CheckPin {
       status: String,
-      message:
+      message: String
     }
 
     type MsgUser {
@@ -37,7 +37,7 @@ module.exports = {
     extend type Query {
       checkSignin ( code: String, token: String ): User,
       seeEmployee ( code: String, token: String ): [ User ],
-      checkPin ( code: String, token: String ): 
+      checkPin ( code: String, token: String ): CheckPin
     }
 
     extend type Mutation {
