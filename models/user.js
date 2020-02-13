@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server'),
   { UserController } = require('../controllers'),
   { catchedErr } = require('../helpers'),
-  { checkSignin, getFilter, signup, updatePin, signin, forgotPassword, confirmCode, changePassword, uploadProfile, allEmployee } = UserController;
+  { checkSignin, getFilter, signup, updatePsignupn, signin, forgotPassword, confirmCode, changePassword, uploadProfile, allEmployee } = UserController;
   
 module.exports = {
   typeUser: gql`
@@ -17,7 +17,7 @@ module.exports = {
       identityNumber: Int,
       religion: String,
       gender: String,
-      pin_security: String
+      pin_security: Int
     }
 
     type PackageUser {
@@ -42,7 +42,7 @@ module.exports = {
       confirm ( code: String, newPass: String, secretCode: String ): User,
       changePass ( code: String, newPass: String, token: String, oldPass: String ): MsgUser,
       updateProfile ( code: String, token: String, image: String ): User,
-      changePin ( code: String, token: String, new_pin: String, old_ping: String ): UserController
+      changePin ( code: String, token: String, new_pin: String, old_ping: String ): User
     }
   `,
   resolveUser: {

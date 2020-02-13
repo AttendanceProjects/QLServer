@@ -17,6 +17,22 @@ module.exports = {
       latitude: String,
       longitude: String
     }
+
+    type UserCorrection { 
+      _id: String,
+      username: String,
+      password: String,
+      profile_image: String,
+      email: String,
+      role: String,
+      join: String,
+      phone: String,
+      identityNumber: Int,
+      religion: String,
+      gender: String,
+      pin_security: Int
+    }
+
     type AttendanceCorrectionId {
       _id: String,
       UserId: String,
@@ -41,7 +57,7 @@ module.exports = {
     type Correction {
       _id: String,
       AttId: AttendanceCorrectionId,
-      UserId: String,
+      UserId: UserCorrection,
       reason: String,
       image: String,
       start: String,
@@ -56,13 +72,13 @@ module.exports = {
     extend type Query {
       userCorrection ( code: String, token: String ) : [ Correction ],
       filterCorrection ( code: String, token: String, key: String ): [ Correction ],
-      getOneCorrection ( code: Stirng, token: String, id: String ): Correction
+      getOneCorrection ( code: String, token: String, id: String ): Correction
     }
 
     extend type Mutation {
-      reqIn ( code: String, token: String, pin_security: String ): [ Correction ]
+      reqIn ( code: String, token: String, pin_security: Int ): [ Correction ]
       createCorrection ( code: String, token: String, reason: String, image: String, start_time: String, end_time: String, id: String ): MsgCorrection,
-      responseCorrection ( code: String, token: String, res: String, id: String ): Correction 
+      responseCorrection ( code: String, token: String, res: String, id: String, pin_security: Int ): Correction 
     }
   `,
   resolveCorrection: {
