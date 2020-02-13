@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server'),
   { UserController } = require('../controllers'),
   { catchedErr } = require('../helpers'),
-  { checkSignin, getFilter, signup, updatePsignupn, signin, forgotPassword, confirmCode, changePassword, uploadProfile, allEmployee } = UserController;
+  { checkSignin, getFilter, signup, checkingPin, updatePin, signin, forgotPassword, confirmCode, changePassword, uploadProfile, allEmployee } = UserController;
   
 module.exports = {
   typeUser: gql`
@@ -25,13 +25,19 @@ module.exports = {
       token: String
     }
 
+    type CheckPin {
+      status: String,
+      message:
+    }
+
     type MsgUser {
       msg: String
     }
 
     extend type Query {
       checkSignin ( code: String, token: String ): User,
-      seeEmployee ( code: String, token: String ): [ User ]
+      seeEmployee ( code: String, token: String ): [ User ],
+      checkPin ( code: String, token: String ): 
     }
 
     extend type Mutation {
@@ -53,6 +59,10 @@ module.exports = {
       },
       seeEmployee: async ( _, { code, token } ) => {
         try { return await allEmployee({ code, token }) }
+        catch(err) { catchedErr( err ) }
+      },
+      checkPin: async (_, { code, token }) => {
+        try { return await checkingPin({ code, token }) }
         catch(err) { catchedErr( err ) }
       }
     },
