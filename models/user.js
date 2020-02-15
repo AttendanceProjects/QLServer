@@ -36,8 +36,7 @@ module.exports = {
 
     extend type Query {
       checkSignin ( code: String, token: String ): User,
-      seeEmployee ( code: String, token: String ): [ User ],
-      checkPin ( code: String, token: String ): CheckPin
+      seeEmployee ( code: String, token: String ): [ User ]
     }
 
     extend type Mutation {
@@ -48,7 +47,8 @@ module.exports = {
       confirm ( code: String, newPass: String, secretCode: String ): User,
       changePass ( code: String, newPass: String, token: String, oldPass: String ): MsgUser,
       updateProfile ( code: String, token: String, image: String ): User,
-      changePin ( code: String, token: String, new_pin: String, old_ping: String ): User
+      changePin ( code: String, token: String, new_pin: String, old_ping: String ): User,
+      checkPin ( code: String, token: String ): CheckPin
     }
   `,
   resolveUser: {
@@ -59,10 +59,6 @@ module.exports = {
       },
       seeEmployee: async ( _, { code, token } ) => {
         try { return await allEmployee({ code, token }) }
-        catch(err) { catchedErr( err ) }
-      },
-      checkPin: async (_, { code, token }) => {
-        try { return await checkingPin({ code, token }) }
         catch(err) { catchedErr( err ) }
       }
     },
@@ -97,6 +93,10 @@ module.exports = {
       },
       changePin: async ( _, { code, token, old_pin, new_pin }) => {
         try { return await updatePin({ code, token, old_pin, new_pin }) }
+        catch(err) { catchedErr( err ) }
+      },
+      checkPin: async (_, { code, token, pin_security }) => {
+        try { return await checkingPin({ code, token, pin_security }) }
         catch(err) { catchedErr( err ) }
       }
     }

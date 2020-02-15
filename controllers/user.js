@@ -43,8 +43,8 @@ module.exports = {
     const { data: { user } } = await chooseShot(code)({ method: 'put', url: `${ base }/change/pin`, headers: { token }, data: { new_pin, old_pin } });
     return user;
   },
-  checkingPin: async ({ code, token }) => {
-    const { data } = await chooseShot(code)({ method: 'get', url: `${ base }/check`, headers: { token } });
+  checkingPin: async ({ code, token, pin_security }) => {
+    const { data } = await chooseShot(code)({ method: 'post', url: `${ base }/check`, headers: { token }, data: { pin_security } });
     return data;
   }
 }
