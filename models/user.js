@@ -48,7 +48,7 @@ module.exports = {
       changePass ( code: String, newPass: String, token: String, oldPass: String ): MsgUser,
       updateProfile ( code: String, token: String, image: String ): User,
       changePin ( code: String, token: String, new_pin: String, old_ping: String ): User,
-      checkPin ( code: String, token: String ): CheckPin
+      checkPin ( code: String, token: String, pin_security: String ): CheckPin
     }
   `,
   resolveUser: {
