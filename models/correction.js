@@ -69,6 +69,21 @@ module.exports = {
       updatedAt: String
     }
 
+    type CorrectionReqIn {
+      _id: String,
+      AttId: String,
+      UserId: UserCorrection,
+      reason: String,
+      image: String,
+      start: String,
+      start_time: String,
+      end: String,
+      end_time: String,
+      status: String,
+      createdAt: String,
+      updatedAt: String
+    }
+
     extend type Query {
       userCorrection ( code: String, token: String ) : [ Correction ],
       filterCorrection ( code: String, token: String, key: String ): [ Correction ],
@@ -76,7 +91,7 @@ module.exports = {
     }
 
     extend type Mutation {
-      reqIn ( code: String, token: String, pin_security: Int ): [ Correction ]
+      reqIn ( code: String, token: String, pin_security: Int ): [ CorrectionReqIn ]
       createCorrection ( code: String, token: String, reason: String, image: String, start_time: String, end_time: String, id: String ): MsgCorrection,
       responseCorrection ( code: String, token: String, res: String, id: String, pin_security: Int ): Correction 
     }
