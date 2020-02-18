@@ -6,12 +6,12 @@ module.exports = {
     const { data: { token: tokenServer } } = await chooseShot(code)({ method: 'post', url: base, headers: { token } });
     return tokenServer;
   },
-  allToken: async ({ code, token }) => {
-    const { data: { token: tokenServer } } = await chooseShot(code)({ method: 'get', url: base, headers: { token } });
-    return tokenServer;
+  pushAllUser: async ({ code, token, title, body }) => {
+    const { data: { msg } } = await chooseShot(code)({ method: 'post', url: `${ base }/all`, headers: { token }, data: { title, body } });
+    return msg;
   },
-  oneToken: async ({ code, token, id }) => {
-    const { data: { token: tokenServer } } = await chooseShot(code)({ method: 'get', url: `${ base }/${ id }`, headers: { token } });
-    return tokenServer;
+  pushOneUser: async ({ code, token, title, body, id }) => {
+    const { data: { msg } } = await chooseShot(code)({ method: 'post', url: `${ base }/user/${ id }`, headers: { token }, data: { title, body } });
+    return msg;
   }
 }

@@ -1,5 +1,5 @@
 const { gql } = require('apollo-server'),
-  { TokenController: { makeToken, oneToken, allToken: allController } } = require('../controllers'),
+  { TokenController: { makeToken, pushAllUser, pushOneUser } } = require('../controllers'),
   { catchedErr } = require('../helpers')
 
 module.exports = {
@@ -28,29 +28,24 @@ module.exports = {
       token: String
     }
 
-    extend type Query {
-      allToken ( code: String, token: String ): Token,
-      userToken ( code: String, token: String, id: String ): Token
-    }
-
     extend type Mutation {
-      createToken ( code: String, token: String, token_expo: String ): Token
+      createToken ( code: String, token: String, token_expo: String ): Token,
+      allUser ( code: String, token: String, title: String, body: String ): String,
+      oneUser ( code: String, token: String, title: String, body: String, id: String ): String
     }
   `,
   resolveToken: {
-    Query: {
-      allToken: async ( _,{ code, token } ) => {
-        try{ return await allController({ code, token }) }
-        catch(err) { catchedErr( err ) }
-      },
-      userToken: async ( _,{ code, token, id }) => {
-        try{ return await oneToken({ code, token, id }) }
-        catch(err) { catchedErr( err ) }
-      }
-    },
     Mutation: {
       createToken: async ( _,{ code, token } ) => {
         try{ return await makeToken({ code, token }) }
+        catch(err) { catchedErr( err ) }
+      },
+      allUser: async ( _,{ code, token, title, body } ) => {
+        try{ return await pushAllUser({ code, token, title, body }) }
+        catch(err) { catchedErr( err ) }
+      },
+      oneUser: async ( _,{ code, token, title, body, id } ) => {
+        try{ return await pushOneUser({ code, token, title, body, id }) }
         catch(err) { catchedErr( err ) }
       }
     }
