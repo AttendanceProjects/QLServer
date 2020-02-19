@@ -30,6 +30,8 @@ module.exports = {
       end_issues: String,
       end_location: LocationAtt,
       end_reason: String,
+      createdAt: String,
+      updatedAt: String,
       date: String
     }
     
