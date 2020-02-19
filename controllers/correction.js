@@ -15,8 +15,8 @@ module.exports = {
     return data;
   },
   responCorrection: async ({ code, token, id, res, pin_security }) => {
-    const { data: { correction } } = await chooseShot(code)({ method: 'patch', url: `${base}/${id}/${res}`, headers: { token }, data: { pin_security } });
-    return correction;
+    const { data: { msg } } = await chooseShot(code)({ method: 'patch', url: `${base}/${id}/${res}`, headers: { token }, data: { pin_security } });
+    return msg;
   },
   seeReqIn: async ({ code, token, pin_security }) => {
     const { data: { correction } } = await chooseShot(code)({ method: 'post', url: `${base}/inreq`, headers: { token }, data: { pin_security } });

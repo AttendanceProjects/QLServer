@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const { ApolloServer, gql, makeExecutableSchema } = require('apollo-server'),
   {
     User: { typeUser, resolveUser },
@@ -12,7 +14,6 @@ const { ApolloServer, gql, makeExecutableSchema } = require('apollo-server'),
     type Query
     type Mutation
   `
-
 
 const server = new ApolloServer(
   { 

@@ -1,1 +1,1 @@
-module.exports = require('axios').create({ baseURL: 'http://localhost:3001' })
+module.exports = require('axios').create({ baseURL: process.env.PT_LIM })

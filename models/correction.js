@@ -93,7 +93,7 @@ module.exports = {
     extend type Mutation {
       reqIn ( code: String, token: String, pin_security: Int ): [ CorrectionReqIn ]
       createCorrection ( code: String, token: String, reason: String, image: String, start_time: String, end_time: String, id: String ): MsgCorrection,
-      responseCorrection ( code: String, token: String, res: String, id: String, pin_security: Int ): Correction 
+      responseCorrection ( code: String, token: String, res: String, id: String, pin_security: Int ): String 
     }
   `,
   resolveCorrection: {
