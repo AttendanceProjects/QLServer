@@ -52,7 +52,7 @@ module.exports = {
       createAtt ( code: String, token: String, start_image: String, start_reason: String ): Attendance,
       createOffline ( code: String, token: String, start_image: String, start_reason: String, clock: String ): Attendance,
       updateAtt ( code: String, token: String, id: String, end_image: String, end: String ): Attendance,
-      updateOffline ( code: String, token: String, id: String, clock: String, end_image: String ): Attendance;
+      updateOffline ( code: String, token: String, id: String, clock: String, end_image: String ): Attendance,
       locUpdate ( code: String, token: String, os: String, type: String, id: String, latitude: String, longitude: String, accuracy: String, reason: String ): Attendance,
       failProcess ( code: String, token: String, id: String ): MsgAtt,
       revisiLocation ( code: String, token: String, os: String, type: String, id: String, latitude: String, longitude: String, accuracy: String ): Attendance,
