@@ -55,5 +55,9 @@ module.exports = {
   checkAtt: async ({ code, token, id }) => {
     const { data } = await chooseShot(code)({ method: 'get', url: `${base}/check/${id}`, headers: { token } });
     return data;
+  },
+  updateOfflineEndAtt: async ({ code, token, id, end_image, clock }) => {
+    const { data: { attendance } } = await chooseShot(code)({ method: 'patch', url: `${base}/offline/${id}`, headers: { token }, data: { end_image, clock } });
+    return attendance;
   }
 }
