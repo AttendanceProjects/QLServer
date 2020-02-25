@@ -40,7 +40,7 @@ module.exports = {
     }
 
     extend type Mutation {
-      signup ( code: String, username: String, password: String, email: String, role: String ): User,
+      signup ( code: String, username: String, password: String, email: String, role: String, phone: String, identityNumber: Int, religion: String, gender: String ): User,
       signin ( code: String, request: String, password: String ): PackageUser,
       forgot ( code: String, email: String ): MsgUser,
       filterEmployee ( code: String, token: String, search: String ): [ User ],
