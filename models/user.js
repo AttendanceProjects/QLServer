@@ -63,8 +63,8 @@ module.exports = {
       }
     },
     Mutation: {
-      signup: async ( _, { code, token, username, email, role, password, phone, identityNumber, religion, gender } ) => {
-        try { return await signup({ code, token, username, email, role, password, phone, identityNumber, religion, gender }) }
+      signup: async ( _, { code, token, username, email, role, password, phone, religion, gender } ) => {
+        try { return await signup({ code, token, username, email, role, password, phone, religion, gender }) }
         catch(err) { catchedErr( err ) }
       },
       signin: async ( _, { code, request, password } ) => {
