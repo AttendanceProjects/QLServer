@@ -40,7 +40,7 @@ module.exports = {
     }
 
     extend type Mutation {
-      signup ( code: String, username: String, password: String, email: String, role: String, phone: String, identityNumber: Int, religion: String, gender: String ): User,
+      signup ( code: String, token: String, username: String, password: String, email: String, role: String, phone: String, identityNumber: Int, religion: String, gender: String ): User,
       signin ( code: String, request: String, password: String ): PackageUser,
       forgot ( code: String, email: String ): MsgUser,
       filterEmployee ( code: String, token: String, search: String ): [ User ],
@@ -63,8 +63,8 @@ module.exports = {
       }
     },
     Mutation: {
-      signup: async ( _, { code, username, email, role, password, phone, identityNumber, religion, gender } ) => {
-        try { return await signup({ code, username, email, role, password, phone, identityNumber, religion, gender }) }
+      signup: async ( _, { code, token, username, email, role, password, phone, identityNumber, religion, gender } ) => {
+        try { return await signup({ code, token, username, email, role, password, phone, identityNumber, religion, gender }) }
         catch(err) { catchedErr( err ) }
       },
       signin: async ( _, { code, request, password } ) => {
